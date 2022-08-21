@@ -6,11 +6,13 @@ export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
 export var KNOCKBACK_VELOCITY = 130
+export var SOFT_COLLISION_FORCE = 400
 
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
 onready var hurtbox = $Hurtbox
+onready var softCollision = $SoftCollision
 
 enum {
 	IDLE,
@@ -45,6 +47,8 @@ func _physics_process(delta):
 				state = IDLE
 	
 	sprite.flip_h = velocity.x < 0
+	if softCollision.is_colliding():
+		velocity += softCollision.get_push_vector() * delta * SOFT_COLLISION_FORCE
 	velocity = move_and_slide(velocity)
 
 func seek_player():
