@@ -490,7 +490,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 position = Vector2( 160, 90 )
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 320, 180 )
+region_rect = Rect2( 0, 0, 1248, 560 )
 
 [node name="DirtPathTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -529,6 +529,9 @@ position = Vector2( 112, 24 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 197, 173 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
+remote_path = NodePath("../../../Camera2D")
 
 [node name="Grass" type="YSort" parent="YSort"]
 
@@ -581,8 +584,15 @@ position = Vector2( 64, 112 )
 [node name="Bat4" parent="YSort/Enemies" instance=ExtResource( 7 )]
 position = Vector2( 105, 44 )
 
-[node name="HealthUI" parent="." instance=ExtResource( 8 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]
 margin_left = 4.0
 margin_top = 3.0
 margin_right = 100.0
 margin_bottom = 15.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 197, 173 )
+current = true
+smoothing_enabled = true
